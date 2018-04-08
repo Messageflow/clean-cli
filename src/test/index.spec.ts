@@ -63,7 +63,7 @@ describe('@messageflow/clean-cli', () => {
       const oldCwd = process.cwd();
       const createdTemp = await tempFileDir();
 
-      console.log('# createdTemp', createdTemp, existsSync(createdTemp));
+      console.log('# createdTemp', oldCwd, createdTemp, existsSync(createdTemp));
 
       process.chdir(createdTemp);
 
