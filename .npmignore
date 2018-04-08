@@ -9,3 +9,5 @@
 
 # But but these
 gulpfile.js
+!dist/index.js
+!dist/index.d.ts
