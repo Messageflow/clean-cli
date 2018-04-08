@@ -5,6 +5,7 @@ import execa from 'execa';
 import {
   mkdir,
   writeFile,
+  existsSync,
 } from 'fs';
 import { sep } from 'path';
 import tempy from 'tempy';
@@ -19,37 +20,41 @@ function touchDir(dirPath) {
 }
 
 async function tempFileDir() {
-  const tempDir = tempy.directory();
+  try {
+    const tempDir = tempy.directory();
 
-  await Promise.all([
-    'node_modules',
-    'dist',
-    'test',
-    'demo',
-  ].map(async (folderName) => {
-    return touchDir(`${tempDir}/${folderName}`);
-  }));
+    await Promise.all([
+      'node_modules',
+      'dist',
+      'test',
+      'demo',
+    ].map(async (folderName) => {
+      return touchDir(`${tempDir}/${folderName}`);
+    }));
 
-  await Promise.all([
-    'index.js',
-    'index.d.ts',
-    'gulpfile.js',
+    await Promise.all([
+      'index.js',
+      'index.d.ts',
+      'gulpfile.js',
 
-    'test-one.js',
-    'test-one.d.ts',
+      'test-one.js',
+      'test-one.d.ts',
 
-    'test-two.js',
-    'test-two.d.ts',
+      'test-two.js',
+      'test-two.d.ts',
 
-    'test-three.js',
-    'test-three.d.ts',
-  ].map(async (fileName) => {
-    return writeTo(`${tempDir}/${fileName}`, '# To be deleted');
-  }));
+      'test-three.js',
+      'test-three.d.ts',
+    ].map(async (fileName) => {
+      return writeTo(`${tempDir}/${fileName}`, '# To be deleted');
+    }));
 
-  await writeTo(`${tempDir}/.gitignore`, IGNORE_PATH.join('\n'));
+    await writeTo(`${tempDir}/.gitignore`, IGNORE_PATH.join('\n'));
 
-  return tempDir;
+    return tempDir;
+  } catch (e) {
+    console.error('Failed to setup temp -', e);
+  }
 }
 
 describe('@messageflow/clean-cli', () => {
@@ -57,6 +62,8 @@ describe('@messageflow/clean-cli', () => {
     test('cli works', async () => {
       const oldCwd = process.cwd();
       const createdTemp = await tempFileDir();
+
+      console.log('# createdTemp', createdTemp, existsSync(createdTemp));
 
       process.chdir(createdTemp);
 
