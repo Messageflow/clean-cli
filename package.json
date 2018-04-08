@@ -4,6 +4,12 @@
   "description": "CLI for @messageflow/clean",
   "keywords": [
     "@messageflow/clean-cli",
+    "clean",
+    "clean-cli",
+    "cleaning",
+    "cli",
+    "del",
+    "delete",
     "node",
     "typescript"
   ],
