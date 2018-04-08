@@ -13,13 +13,14 @@ export declare interface CleanCliFlags {
   force: boolean;
 
   d: boolean;
-  'dry-run': boolean;
+  dryRun: boolean;
 }
 
 /** Import project dependencies */
 import { clean, CleanOptions } from '@messageflow/clean';
 import meow from 'meow';
 import path from 'path';
+import updateNotifier from 'update-notifier';
 
 function getCleanConfig({ input, flags }): CleanOptions {
   const rootPath = Array.isArray(input) && input.length > 0
@@ -36,11 +37,21 @@ function getCleanConfig({ input, flags }): CleanOptions {
       globFilePaths == null ? {} : { path: globFilePaths }
     ),
     options: {
-      // dryRun: flags.d != null || flags['dry-run'] != null,
+      dryRun: flags.d != null || flags.dryRun != null,
       force: flags.f != null || flags.force != null,
-      dryRun: true,
     },
   };
+}
+
+function hasInvalidCliFlag(cliFlags: object) {
+  return Object.keys(cliFlags)
+    .some(n => !/(i|file|p|path|f|force|d|dryRun|h|help|debug)/i.test(n));
+}
+
+function showError() {
+  console.error(
+    'Please specify a path to working directory, a path to `.gitignore`, or a glob pattern'
+  );
 }
 
 const cli = meow(`
@@ -56,36 +67,59 @@ const cli = meow(`
   Examples
     $ clean .
     $ clean -i ./.gitignore
+    $ clean -i ./.gitignore -d
     $ clean -p "**/src/**/*.js,**/src/**/*.d.ts,!gulpfile.js"
 `, {
   string: [
     'file',
     'path',
-    '_',
   ],
   boolean: [
-    'force',
+    'debug',
     'dry-run',
+    'force',
+    'help',
   ],
   alias: {
+    d: 'dry-run',
+    f: 'force',
+    h: 'help',
     i: 'file',
     p: 'path',
-    f: 'force',
-    d: 'dry-run',
   },
 });
 const cleanConfig = getCleanConfig(cli);
 
-clean({ ...cleanConfig })
-  .then((files) => {
-    if (cleanConfig.options.dryRun) {
-      console.log(`${files.length} files/ folders to be deleted:\n`);
+/** NOTE: Check for update of the CLI */
+updateNotifier({ pkg: cli.pkg }).notify();
 
-      if (files.length > 0) {
-        console.log(`${files.join('\n')}\n`);
-      }
-    }
+/** NOTE: Hidden debugging feature */
+if (cli.flags.debug) {
+  console.debug({ input: cli.input, flags: cli.flags });
+}
 
-    console.log('👍 The working directory is now clean again!\n');
-  })
-  .catch(e => console.error('Failed to clean -', e));
+switch (true) {
+  case (cli.flags.h || cli.flags.help): {
+    cli.showHelp();
+    break;
+  }
+  case (cli.input.length >= 0 && !hasInvalidCliFlag(cli.flags)): {
+    clean({ ...cleanConfig })
+      .then((files) => {
+        if (cleanConfig.options.dryRun) {
+          console.log(`${files.length} files/ folders to be deleted:\n`);
+
+          if (files.length > 0) {
+            console.log(`${files.join('\n')}\n`);
+          }
+        }
+
+        console.log('👍 The working directory is now clean again!\n');
+      })
+      .catch(e => console.error('Failed to clean -', e));
+    break;
+  }
+  default: {
+    showError();
+  }
+}

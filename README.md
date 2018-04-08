@@ -24,20 +24,9 @@
 
 ## Table of contents
 
-- [Pre-requisite](#pre-requisite)
-- [Setup](#setup)
-  - [Install](#install)
-  - [Usage](#usage)
-    - [Node.js](#nodejs)
-    - [Native ES modules or TypeScript](#native-es-modules-or-typescript)
-- [API Reference](#api-reference)
-  - [greeting(name)](#greetingname)
-  - [greetingSync(name)](#greetingsyncname)
-- [License](#license)
-
 ## Pre-requisites
 
-- [Node.js][node-js-url] >= 8.9.0
+- [Node.js][nodejs-url] >= 8.9.0
 - [NPM][npm-url] >= 5.5.1 ([NPM][npm-url] comes with [Node.js][nodejs-url] so there is no need to install separately.)
 
 ## Setup
@@ -51,18 +40,11 @@ $ npm install --save @messageflow/clean-cli
 
 ### Usage
 
-#### Node.js
+#### With npx
 
-```js
-const greeting = require('@messageflow/clean-cli');
-```
-
-#### Native ES modules or TypeScript
-
-```ts
-// @ts-check
-
-import greeting from '@messageflow/clean-cli';
+```sh
+$ npx -p @messageflow/clean-cli -- clean
+$ npx -p 
 ```
 
 ## API Reference
