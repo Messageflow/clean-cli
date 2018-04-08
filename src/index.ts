@@ -55,20 +55,20 @@ function showError() {
 }
 
 const cli = meow(`
-  Usage
-    $ clean <path|glob> ...
+Usage
+$ clean <path|glob> ...
 
-  Options
-    -i, --file    Specify the path to read \`.gitignore\`
-    -p, --path    Specify the glob patterns to delete files/ folders.
-    -f, --force   Allow deleting the current working directory and outside
-    -d, --dry-run List what would be deleted instead of deleting
+Options
+  -i, --file    Specify the path to read \`.gitignore\`
+  -p, --path    Specify the glob patterns to delete files/ folders.
+  -f, --force   Allow deleting the current working directory and outside
+  -d, --dry-run List what would be deleted instead of deleting
 
-  Examples
-    $ clean .
-    $ clean -i ./.gitignore
-    $ clean -i ./.gitignore -d
-    $ clean -p "**/src/**/*.js,**/src/**/*.d.ts,!gulpfile.js"
+Examples
+  $ clean .
+  $ clean -i ./.gitignore
+  $ clean -i ./.gitignore -d
+  $ clean -p "**/src/**/*.js,**/src/**/*.d.ts,!gulpfile.js"
 `, {
   string: [
     'file',
