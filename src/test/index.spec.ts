@@ -64,6 +64,22 @@ describe('@messageflow/clean-cli', () => {
 
       process.chdir(createdTemp);
 
+      const d = await execa(`${oldCwd}/dist/index.js`, [createdTemp]);
+
+      expect(d.stdout).toEqual([
+        '👍 The working directory is now clean again!',
+        '',
+      ].join('\n'));
+
+      process.chdir(oldCwd);
+    });
+
+    test('cli works with --dry-run', async () => {
+      const oldCwd = process.cwd();
+      const createdTemp = await tempFileDir();
+
+      process.chdir(createdTemp);
+
       const d = await execa(`${oldCwd}/dist/index.js`, [createdTemp, '-d']);
 
       expect(d.stdout).toEqual([
@@ -81,8 +97,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-one.js`,
         `${createdTemp}${sep}test-three.js`,
         `${createdTemp}${sep}test-two.js`,
-        '',
-        '👍 The working directory is now clean again!',
         '',
       ].join('\n'));
 
@@ -117,8 +131,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-three.js`,
         `${createdTemp}${sep}test-two.js`,
         '',
-        '👍 The working directory is now clean again!',
-        '',
       ].join('\n'));
 
       process.chdir(oldCwd);
@@ -152,8 +164,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-three.js`,
         `${createdTemp}${sep}test-two.js`,
         '',
-        '👍 The working directory is now clean again!',
-        '',
       ].join('\n'));
 
       process.chdir(oldCwd);
@@ -182,8 +192,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-three.js`,
         `${createdTemp}${sep}test-two.d.ts`,
         `${createdTemp}${sep}test-two.js`,
-        '',
-        '👍 The working directory is now clean again!',
         '',
       ].join('\n'));
 
@@ -214,8 +222,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-two.d.ts`,
         `${createdTemp}${sep}test-two.js`,
         '',
-        '👍 The working directory is now clean again!',
-        '',
       ].join('\n'));
 
       process.chdir(oldCwd);
@@ -244,8 +250,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-three.js`,
         `${createdTemp}${sep}test-two.d.ts`,
         `${createdTemp}${sep}test-two.js`,
-        '',
-        '👍 The working directory is now clean again!',
         '',
       ].join('\n'));
 

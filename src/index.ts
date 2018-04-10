@@ -112,6 +112,8 @@ switch (true) {
           if (files.length > 0) {
             console.log(`${files.join('\n')}\n`);
           }
+
+          return;
         }
 
         console.log('👍 The working directory is now clean again!\n');
