@@ -39,6 +39,7 @@
     "test": "jest --config ./.jestrc.json"
   },
   "dependencies": {
+    "@messageflow/clean": "0.0.6",
     "meow": "^4.0.0",
     "update-notifier": "^2.4.0"
   },
