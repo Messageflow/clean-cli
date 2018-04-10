@@ -83,7 +83,7 @@ describe('@messageflow/clean-cli', () => {
       const d = await execa(`${oldCwd}/dist/index.js`, [createdTemp, '-d']);
 
       expect(d.stdout).toEqual([
-        '12 files/ folders to be deleted:',
+        '11 files/ folders to be deleted:',
         '',
         `${createdTemp}${sep}dist`,
         `${createdTemp}${sep}node_modules`,
@@ -92,7 +92,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-one.d.ts`,
         `${createdTemp}${sep}test-three.d.ts`,
         `${createdTemp}${sep}test-two.d.ts`,
-        `${createdTemp}${sep}gulpfile.js`,
         `${createdTemp}${sep}index.js`,
         `${createdTemp}${sep}test-one.js`,
         `${createdTemp}${sep}test-three.js`,
@@ -116,7 +115,7 @@ describe('@messageflow/clean-cli', () => {
       ]);
 
       expect(d.stdout).toEqual([
-        '12 files/ folders to be deleted:',
+        '11 files/ folders to be deleted:',
         '',
         `${createdTemp}${sep}dist`,
         `${createdTemp}${sep}node_modules`,
@@ -125,7 +124,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-one.d.ts`,
         `${createdTemp}${sep}test-three.d.ts`,
         `${createdTemp}${sep}test-two.d.ts`,
-        `${createdTemp}${sep}gulpfile.js`,
         `${createdTemp}${sep}index.js`,
         `${createdTemp}${sep}test-one.js`,
         `${createdTemp}${sep}test-three.js`,
@@ -149,7 +147,7 @@ describe('@messageflow/clean-cli', () => {
       ]);
 
       expect(d.stdout).toEqual([
-        '12 files/ folders to be deleted:',
+        '11 files/ folders to be deleted:',
         '',
         `${createdTemp}${sep}dist`,
         `${createdTemp}${sep}node_modules`,
@@ -158,7 +156,6 @@ describe('@messageflow/clean-cli', () => {
         `${createdTemp}${sep}test-one.d.ts`,
         `${createdTemp}${sep}test-three.d.ts`,
         `${createdTemp}${sep}test-two.d.ts`,
-        `${createdTemp}${sep}gulpfile.js`,
         `${createdTemp}${sep}index.js`,
         `${createdTemp}${sep}test-one.js`,
         `${createdTemp}${sep}test-three.js`,
