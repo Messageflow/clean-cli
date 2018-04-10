@@ -106,8 +106,8 @@ switch (true) {
   case (cli.input.length >= 0 && !hasInvalidCliFlag(cli.flags)): {
     clean({ ...cleanConfig })
       .then((files) => {
-        if (cleanConfig.options.dryRun) {
-          console.log(`${files.length} files/ folders to be deleted:\n`);
+        if (cleanConfig!.options!.dryRun) {
+          console.log(`${files!.length} files/ folders to be deleted:\n`);
 
           if (files.length > 0) {
             console.log(`${files.join('\n')}\n`);
