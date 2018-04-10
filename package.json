@@ -1,6 +1,6 @@
 {
   "name": "@messageflow/clean-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI for @messageflow/clean",
   "keywords": [
     "@messageflow/clean-cli",
